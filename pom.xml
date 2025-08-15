@@ -1,0 +1,112 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<project xmlns="http://maven.apache.org/POM/4.0.0"-->
+<!--         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 -->
+<!--         http://maven.apache.org/xsd/maven-4.0.0.xsd">-->
+<!--    <modelVersion>4.0.0</modelVersion>-->
+<!--    -->
+<!--    <parent>-->
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
+<!--        <version>3.2.0</version>-->
+<!--        <relativePath/>-->
+<!--    </parent>-->
+<!--    -->
+<!--    <groupId>com.interview</groupId>-->
+<!--    <artifactId>interview-app-backend</artifactId>-->
+<!--    <version>1.0.0</version>-->
+<!--    <name>Interview App Backend</name>-->
+<!--    <description>Backend service for AI-powered interview application using Gemini Live API</description>-->
+<!--    -->
+<!--    <properties>-->
+<!--        <java.version>17</java.version>-->
+<!--        <maven.compiler.source>17</maven.compiler.source>-->
+<!--        <maven.compiler.target>17</maven.compiler.target>-->
+<!--    </properties>-->
+<!--    -->
+<!--    <dependencies>-->
+<!--        &lt;!&ndash; Spring Boot Starters &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-websocket</artifactId>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-validation</artifactId>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        &lt;!&ndash; WebSocket Client for Gemini API &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.java-websocket</groupId>-->
+<!--            <artifactId>Java-WebSocket</artifactId>-->
+<!--            <version>1.5.4</version>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        &lt;!&ndash; JSON Processing &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--            <artifactId>jackson-databind</artifactId>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        &lt;!&ndash; Lombok for boilerplate code &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        &lt;!&ndash; Apache Commons &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-lang3</artifactId>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        <dependency>-->
+<!--            <groupId>commons-codec</groupId>-->
+<!--            <artifactId>commons-codec</artifactId>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        &lt;!&ndash; Logging &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-logging</artifactId>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        &lt;!&ndash; Configuration &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-configuration-processor</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
+<!--        -->
+<!--        &lt;!&ndash; Testing &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-test</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
+<!--    -->
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <excludes>-->
+<!--                        <exclude>-->
+<!--                            <groupId>org.projectlombok</groupId>-->
+<!--                            <artifactId>lombok</artifactId>-->
+<!--                        </exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+<!--</project>-->
