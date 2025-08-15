@@ -8,7 +8,6 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.enums.ReadyState;
 import org.java_websocket.handshake.ServerHandshake;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.nio.ByteBuffer;
@@ -16,28 +15,42 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-@Component
 public class GeminiWebSocketClient extends WebSocketClient {
     
     private final ObjectMapper objectMapper;
     private final Map<String, SessionHandler> sessionHandlers = new ConcurrentHashMap<>();
     private boolean isConnected = false;
+    private final String sessionId;
+    private final String defaultVoice;
+    private final String systemInstruction;
     
     @Value("${gemini.api.model}")
     private String model;
     
-    @Value("${interview.config.default-voice}")
-    private String defaultVoice;
-    
     @Value("${interview.config.response-modality}")
     private String responseModality;
     
-    @Value("${interview.config.system-instruction}")
-    private String systemInstruction;
-    
+    // Constructor for Spring Bean (backward compatibility)
     public GeminiWebSocketClient(URI serverUri, ObjectMapper objectMapper) {
         super(serverUri);
         this.objectMapper = objectMapper;
+        this.sessionId = null;
+        this.defaultVoice = null;
+        this.systemInstruction = null;
+        
+        // Add necessary headers
+        this.addHeader("Origin", "http://localhost:8080");
+        this.addHeader("User-Agent", "Interview-App/1.0");
+    }
+    
+    // Constructor for dedicated session connections
+    public GeminiWebSocketClient(URI serverUri, ObjectMapper objectMapper, String sessionId, 
+                                String defaultVoice, String systemInstruction) {
+        super(serverUri);
+        this.objectMapper = objectMapper;
+        this.sessionId = sessionId;
+        this.defaultVoice = defaultVoice;
+        this.systemInstruction = systemInstruction;
         
         // Add necessary headers
         this.addHeader("Origin", "http://localhost:8080");

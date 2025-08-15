@@ -3,6 +3,7 @@ package com.interview.app.service;
 import com.interview.app.dto.InterviewMessage;
 import com.interview.app.dto.MediaChunk;
 import com.interview.app.websocket.GeminiWebSocketClient;
+import com.interview.app.websocket.GeminiConnectionPool;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -18,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public class InterviewService {
     
-    private final GeminiWebSocketClient geminiClient;
+    private final GeminiConnectionPool connectionPool;
     private final SimpMessagingTemplate messagingTemplate;
     private final Map<String, InterviewSession> activeSessions = new ConcurrentHashMap<>();
     
@@ -26,6 +27,9 @@ public class InterviewService {
         String sessionId = UUID.randomUUID().toString();
         InterviewSession session = new InterviewSession(sessionId, userId);
         activeSessions.put(sessionId, session);
+        
+        // Get dedicated Gemini connection for this session
+        GeminiWebSocketClient geminiClient = connectionPool.getConnection(sessionId);
         
         // Setup Gemini session handler
         geminiClient.setupSession(sessionId, new GeminiWebSocketClient.SessionHandler() {
@@ -71,8 +75,8 @@ public class InterviewService {
     public void endInterview(String sessionId) {
         InterviewSession session = activeSessions.remove(sessionId);
         if (session != null) {
-            // Remove session from Gemini client - this will close connection if no other sessions
-            geminiClient.removeSession(sessionId);
+            // Remove and close the dedicated connection for this session
+            connectionPool.removeConnection(sessionId);
             log.info("Ended interview session: {}", sessionId);
         }
     }
@@ -85,6 +89,9 @@ public class InterviewService {
             log.error("No active session found for: {}", sessionId);
             return;
         }
+        
+        // Get the dedicated connection for this session
+        GeminiWebSocketClient geminiClient = connectionPool.getConnection(sessionId);
         
         switch (message.getType()) {
             case TEXT:
@@ -122,6 +129,7 @@ public class InterviewService {
     
     public void sendMediaToGemini(String sessionId, List<MediaChunk> mediaChunks) {
         // Direct method for sending media to Gemini, bypassing STOMP
+        GeminiWebSocketClient geminiClient = connectionPool.getConnection(sessionId);
         geminiClient.sendRealtimeInput(sessionId, mediaChunks);
     }
     
